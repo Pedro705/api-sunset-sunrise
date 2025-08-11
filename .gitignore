@@ -32,3 +32,9 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+# NPM #
+node_modules/
+
+# DOCKER #
+docker/development/home/
