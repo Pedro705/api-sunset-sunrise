@@ -20,20 +20,20 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: <%= ENV.fetch('DATABASE_HOST', 'postgres') %>
   port: <%= ENV.fetch('DATABASE_PORT', '5432') %> 
-  username: <%= ENV.fetch('DATABASE_USERNAME', 'timeflies') %>
-  password: <%= ENV.fetch('DATABASE_PASSWORD', 'timeflies') %>
+  username: <%= ENV.fetch('DATABASE_USERNAME', 'postgres') %>
+  password: <%= ENV.fetch('DATABASE_PASSWORD', 'postgres') %>
   sslmode: <%= ENV.fetch('DATABASE_SSLMODE', 'prefer') %>
 
 
 development:
   <<: *default
-  database: timeflies_development
+  database: jumpseller_development
 
   # The specified database role being used to connect to PostgreSQL.
   # To create additional roles in PostgreSQL see `$ createuser --help`.
   # When left blank, PostgreSQL will use the default role. This is
   # the same name as the operating system user running Rails.
-  #username: timeflies
+  #username: jumpseller
 
   # The password associated with the PostgreSQL role (username).
   #password:
@@ -61,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: timeflies_test
+  database: jumpseller_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -86,18 +86,18 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: timeflies_production
-    username: timeflies
-    password: <%= ENV["TIMEFLIES_DATABASE_PASSWORD"] %>
+    database: jumpseller_production
+    username: jumpseller
+    password: <%= ENV["jumpseller_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
-    database: timeflies_production_cache
+    database: jumpseller_production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    database: timeflies_production_queue
+    database: jumpseller_production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    database: timeflies_production_cable
+    database: jumpseller_production_cable
     migrations_paths: db/cable_migrate

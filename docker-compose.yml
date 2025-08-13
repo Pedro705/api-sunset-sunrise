@@ -3,7 +3,7 @@ services:
     build:
       dockerfile: docker/development/Dockerfile
       context: .
-    image: timeflies
+    image: jumpseller-api
     env_file: .env
     stdin_open: true
     tty: true
@@ -19,8 +19,8 @@ services:
   postgres:
     image: postgres:16
     environment:
-      POSTGRES_USER: timeflies
-      POSTGRES_PASSWORD: timeflies
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     ports:
       - 5432:5432
     expose:
@@ -37,19 +37,19 @@ services:
     volumes:
       - redis_data:/data
 
-  # sidekiq:
-  #   build:
-  #     dockerfile: docker/development/Dockerfile
-  #     context: .
-  #   entrypoint: docker/development/sidekiq-entrypoint
-  #   env_file:
-  #     - .env
-  #   restart: always
-  #   volumes:
-  #     - $HOME/.ssh:/project/docker/development/home/.ssh
-  #     - .:/project
-  #   depends_on:
-  #     - redis
+# sidekiq:
+#   build:
+#     dockerfile: docker/development/Dockerfile
+#     context: .
+#   entrypoint: docker/development/sidekiq-entrypoint
+#   env_file:
+#     - .env
+#   restart: always
+#   volumes:
+#     - $HOME/.ssh:/project/docker/development/home/.ssh
+#     - .:/project
+#   depends_on:
+#     - redis
 
 volumes:
   bundle_data:
