@@ -1,9 +1,10 @@
 class HistoricalSolarRecordController < ApplicationController
     def index
+        # We could check the mandatory presence of the 3 params
         solar_record = HistoricalSolarRecord.get_historical_solar_records(
-            historical_params["location"],
-            historical_params["start_date"],
-            historical_params["end_date"]
+            params[:location],
+            params[:start_date],
+            params[:end_date]
         )
 
         results = solar_record.map do |record|
@@ -19,11 +20,5 @@ class HistoricalSolarRecordController < ApplicationController
     rescue => e
         # Maybe here we could avoid showing server side errors
         render json: { error: e.message }
-    end
-
-    private
-
-    def historical_params
-        params.permit(:location, :start_date, :end_date)
     end
 end

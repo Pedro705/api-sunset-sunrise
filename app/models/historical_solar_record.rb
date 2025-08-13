@@ -17,15 +17,16 @@ class HistoricalSolarRecord < ApplicationRecord
         location_record = Location.find_or_create_by(name: location)
         raise "Location does not exists" unless location_record
 
-        historical_records = HistoricalSolarRecord.where(location_id: location_record.id, date: start_date..end_date)
+        historical_records = HistoricalSolarRecord
+            .where(location_id: location_record.id, date: start_date..end_date)
+            .select(:date, :sunrise, :sunset, :golden_hour)
         historical_records_dates = historical_records.pluck(:date)
 
         range = (start_date..end_date).to_a
         missing_dates = range.reject { |date| historical_records_dates.include?(date) }
 
-        # This can be inefficient, because will use memory to store and concatenate
-        # historical_records + store_records_by_gap(location_record, missing_dates.first, missing_dates.last)
-        # So i will just reload and query again the data
+        # Opted to just reload the query, it should be fast for the case. We have indexes which improve a lot
+        # We could just append the previous historical_records to the result from store_records_by_gap
         if missing_dates.any?
             store_records_by_gap(location_record, missing_dates.first, missing_dates.last, missing_dates)
             historical_records.reload
@@ -35,8 +36,7 @@ class HistoricalSolarRecord < ApplicationRecord
     end
 
     # Note that the gap will always be the highest
-    # We could have some limitations to the gap, if exceed that limit we seprate in multiple API calls to avoid querying a huge dataset
-    # Didnt seem to be that slow, so i let it this way
+    # We could have limit the gap, if exceed that limit we seprate in multiple API calls to avoid querying a huge dataset
     def self.store_records_by_gap(location, gap_start, gap_end, missing_dates)
         results = Api::SunriseSunset.historial_sunrise_sunset(location.latitude, location.longitude, gap_start, gap_end)
 
