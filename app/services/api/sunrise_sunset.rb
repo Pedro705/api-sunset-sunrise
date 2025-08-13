@@ -25,15 +25,15 @@ module Api
                 raise Error.new(response.message, details: response.body, status_code: response.code)
             end
         rescue JSON::ParserError
-            raise Error.new("Invalid JSON response", details: response.body)
+            raise Error.new("Invalid JSON response", details: response.body, status_code: :internal_server_error)
         rescue => e
-            raise Error.new("Unexpected error: #{e.message}")
+            raise Error.new("Unexpected error: #{e.message}", status_code: e.status_code)
         end
 
         def self.format_date(date)
             Date.parse(date.to_s).strftime("%Y-%m-%d")
         rescue
-            raise Error.new("Invalid date format.")
+            raise Error.new("Invalid date format.", status_code: :bad_request)
         end
     end
 end

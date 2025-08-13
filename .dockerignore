@@ -49,3 +49,9 @@
 # Ignore Docker-related files
 /.dockerignore
 /Dockerfile*
+
+# NPM #
+node_modules/
+
+# DOCKER #
+docker/development/home/

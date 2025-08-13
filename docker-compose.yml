@@ -3,19 +3,14 @@ services:
     build:
       dockerfile: docker/development/Dockerfile
       context: .
-    image: jumpseller-api
     env_file: .env
-    stdin_open: true
-    tty: true
     volumes:
       - .:/project
       - bundle_data:/bundle
       - $HOME/.ssh:/project/docker/development/home/.ssh
     networks:
-      default:
-      jumpseller:
-        aliases:
-          - rails-sunset-sunrise
+      - default
+      - sunset-sunrise
     ports:
       - 3000:3000
     depends_on:
@@ -48,6 +43,5 @@ volumes:
   redis_data:
 
 networks:
-  jumpseller:
+  sunset-sunrise:
     external: true
-    name: sunset-sunrise
