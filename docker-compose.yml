@@ -11,6 +11,11 @@ services:
       - .:/project
       - bundle_data:/bundle
       - $HOME/.ssh:/project/docker/development/home/.ssh
+    networks:
+      default:
+      jumpseller:
+        aliases:
+          - rails-sunset-sunrise
     ports:
       - 3000:3000
     depends_on:
@@ -37,21 +42,12 @@ services:
     volumes:
       - redis_data:/data
 
-# sidekiq:
-#   build:
-#     dockerfile: docker/development/Dockerfile
-#     context: .
-#   entrypoint: docker/development/sidekiq-entrypoint
-#   env_file:
-#     - .env
-#   restart: always
-#   volumes:
-#     - $HOME/.ssh:/project/docker/development/home/.ssh
-#     - .:/project
-#   depends_on:
-#     - redis
-
 volumes:
   bundle_data:
   postgres_data:
   redis_data:
+
+networks:
+  jumpseller:
+    external: true
+    name: sunset-sunrise

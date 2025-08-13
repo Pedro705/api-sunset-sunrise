@@ -1,24 +1,49 @@
-# README
+# Historical Sunset & Sunrise Frontend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the API  historical sunset and sunrise data. You can search by location and date range to see when solar events occurred.
 
-Things you may want to cover:
+## 🚀 Quick Start
 
-* Ruby version
+### Prerequisites
+- Docker installed
 
-* System dependencies
+### Installation
+1. Clone the repository:
+```bash
+git clone https://github.com/Pedro705/api-sunset-sunrise.git
+```
 
-* Configuration
+2. Navigate to project directory:
+```bash
+cd api-sunset-sunrise
+```
 
-* Database creation
+### Running with Docker
+```bash
+docker compose up
+```
 
-* Database initialization
+## 🌐 Access the Endpoint
+After starting, open Postman, and make the request:
+```
+http://localhost:3000/historical_solar_record?location=Lisbon&start_date=10/08/2025&end_date=13/08/2025
+```
+Nice! Everything works!
 
-* How to run the test suite
+## 🐛 Troubleshooting
+If you encounter issues:
+```bash
+docker compose down && docker compose up --build
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 📂 Project Structure
+```
+/app
+  /controllers  - Endpoint controller
+  /models       - Database model logic
+  /services     - Services to access external information
+/db
+  /migrations   - Migrations to add tables to the database schema
+  schema.rb     - Representation of the tables
+docker-compose.yml - Container configuration
+```

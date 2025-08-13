@@ -6,7 +6,16 @@ class HistoricalSolarRecordController < ApplicationController
             historical_params["end_date"]
         )
 
-        render json: solar_record
+        results = solar_record.map do |record|
+            {
+                date: record.date,
+                sunrise: record.sunrise.strftime("%H:%m:%S"),
+                sunset: record.sunset.strftime("%H:%m:%S"),
+                golden_hour: record.sunset.strftime("%H:%m:%S")
+            }
+        end
+
+        render json: results, status: :ok
     rescue => e
         # Maybe here we could avoid showing server side errors
         render json: { error: e.message }
