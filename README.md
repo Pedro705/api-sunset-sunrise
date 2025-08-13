@@ -18,6 +18,11 @@ git clone https://github.com/Pedro705/api-sunset-sunrise.git
 cd api-sunset-sunrise
 ```
 
+3. Add an .env file and add the following line:
+```bash
+SUNRISE_SUNSET_API_URL="https://api.sunrisesunset.io"
+```
+
 ### Running with Docker
 ```bash
 docker compose up
