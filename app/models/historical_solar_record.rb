@@ -32,7 +32,7 @@ class HistoricalSolarRecord < ApplicationRecord
             historical_records.reload
         end
 
-        historical_records
+        historical_records.order(:date)
     end
 
     # Note that the gap will always be the highest
