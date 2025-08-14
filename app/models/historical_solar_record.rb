@@ -12,10 +12,10 @@ class HistoricalSolarRecord < ApplicationRecord
     def self.get_historical_solar_records(location, start_date, end_date)
         start_date = validate_date_string(start_date)
         end_date = validate_date_string(end_date)
-        raise "Must define start and end date" if start_date.blank? || end_date.blank?
+        raise ::Error.new("Must define start and end date", status_code: :bad_request) if start_date.blank? || end_date.blank?
 
         location_record = Location.find_or_create_by(name: location)
-        raise "Location does not exists" unless location_record
+        raise ::Error.new("Location does not exists", status_code: :not_found) unless location_record.persisted?
 
         historical_records = HistoricalSolarRecord
             .where(location_id: location_record.id, date: start_date..end_date)

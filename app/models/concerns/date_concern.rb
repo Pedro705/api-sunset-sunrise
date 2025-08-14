@@ -18,6 +18,8 @@ module DateConcern
       return date if date.is_a?(Date) || date.is_a?(DateTime)
 
       Date.parse(date.to_s)
+    rescue
+      nil
     end
   end
 end

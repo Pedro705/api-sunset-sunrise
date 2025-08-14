@@ -54,4 +54,4 @@
 node_modules/
 
 # DOCKER #
-docker/development/home/
+docker/development/home
