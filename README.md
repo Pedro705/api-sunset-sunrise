@@ -30,7 +30,7 @@ docker compose up
 
 ## 🌐 Access the Endpoint
 After starting, open Postman, and make the request:
-```
+```bash
 http://localhost:3000/historical_solar_record?location=Lisbon&start_date=10/08/2025&end_date=13/08/2025
 ```
 Nice! Everything works!
@@ -39,6 +39,12 @@ Nice! Everything works!
 If you encounter issues:
 ```bash
 docker compose down && docker compose up --build
+```
+
+## 🧪 Tests
+To execute the test you can run the following command:
+```bash
+bundle exec rspec
 ```
 
 ## 📂 Project Structure
